@@ -10,7 +10,7 @@ function CategoryFilter({
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/Book/GetCategories")
+    fetch("http://localhost:5000/api/Books/GetCategories")
       .then((res) => res.json())
       .then((data) => setCategories(data));
   }, []);

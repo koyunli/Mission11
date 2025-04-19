@@ -20,7 +20,7 @@ function BookList() {
         .join("&");
 
       const response = await fetch(
-        `http://localhost:5000/api/Book/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}${
+        `http://localhost:5000/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}${
           selected.length ? `&${categoryParams}` : ""
         }`
       );
