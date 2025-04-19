@@ -13,17 +13,25 @@ public class BookController : Controller
     {
         _bookContext = temp;
     }
-
+    
     [HttpGet("AllBooks")]
-    public IActionResult GetBooks(int pageSize = 5, int pageNum = 1)
+    public IActionResult GetBooks(int pageSize = 5, int pageNum = 1, [FromQuery] List<string>? category = null)
     {
-        var booksPage = _bookContext.Books
+        var query = _bookContext.Books.AsQueryable();
+
+        // 🔍 Filter by selected categories
+        if (category != null && category.Any())
+        {
+            query = query.Where(b => category.Contains(b.Category));
+        }
+
+        var totalNumBooks = query.Count();
+
+        var booksPage = query
             .OrderBy(b => b.Title)
             .Skip((pageNum - 1) * pageSize)
             .Take(pageSize)
             .ToList();
-
-        var totalNumBooks = _bookContext.Books.Count();
 
         var response = new
         {
@@ -33,4 +41,18 @@ public class BookController : Controller
 
         return Ok(response);
     }
+
+    
+    [HttpGet("GetCategories")]
+    public IActionResult GetCategories()
+    {
+        var categories = _bookContext.Books
+            .Select(b => b.Category)
+            .Distinct()
+            .OrderBy(c => c)
+            .ToList();
+
+        return Ok(categories);
+    }
+    
 }
