@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Book } from "../types/Book";
-import { useCart } from "../context/CartContext";
-import CategoryFilter from "../components/CategoryFilter";
-import CartSummary from "../components/CartSummary";
-import "bootstrap/dist/js/bootstrap.bundle.min.js"; // Needed for Toast and Accordion
+import { useEffect, useState } from 'react';
+import { Book } from '../types/Book';
+import { useCart } from '../context/CartContext';
+import CategoryFilter from '../components/CategoryFilter';
+import CartSummary from '../components/CartSummary';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 function BookList() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -17,11 +17,11 @@ function BookList() {
     const fetchBooks = async () => {
       const categoryParams = selected
         .map((cat) => `category=${encodeURIComponent(cat)}`)
-        .join("&");
+        .join('&');
 
       const response = await fetch(
         `http://localhost:5000/api/Books/AllBooks?pageSize=${pageSize}&pageNum=${pageNum}${
-          selected.length ? `&${categoryParams}` : ""
+          selected.length ? `&${categoryParams}` : ''
         }`
       );
       const data = await response.json();
@@ -88,7 +88,7 @@ function BookList() {
                               <strong>Publisher:</strong> {b.publisher}
                             </p>
                             <p>
-                              <strong>Category:</strong> {b.classification} /{" "}
+                              <strong>Category:</strong> {b.classification} /{' '}
                               {b.category}
                             </p>
                             <p>
@@ -118,7 +118,7 @@ function BookList() {
           <div className="d-flex justify-content-center mt-4">
             <nav>
               <ul className="pagination">
-                <li className={`page-item ${pageNum === 1 ? "disabled" : ""}`}>
+                <li className={`page-item ${pageNum === 1 ? 'disabled' : ''}`}>
                   <button
                     className="page-link"
                     onClick={() => setPageNum(pageNum - 1)}
@@ -130,7 +130,7 @@ function BookList() {
                 {[...Array(totalPages)].map((_, i) => (
                   <li
                     key={i}
-                    className={`page-item ${pageNum === i + 1 ? "active" : ""}`}
+                    className={`page-item ${pageNum === i + 1 ? 'active' : ''}`}
                   >
                     <button
                       className="page-link"
@@ -143,7 +143,7 @@ function BookList() {
 
                 <li
                   className={`page-item ${
-                    pageNum === totalPages ? "disabled" : ""
+                    pageNum === totalPages ? 'disabled' : ''
                   }`}
                 >
                   <button
