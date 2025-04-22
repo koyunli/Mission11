@@ -1,11 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace BookStore.API.Data;
 
 public class Book
 {
     [Key]
+    [JsonPropertyName("bookId")]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int BookID { get; set; }
     
